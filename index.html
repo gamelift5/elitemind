@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EliteMind - Think Smarter, Become Faster</title>
+    <script>
+      // Intelligent Domain Redirection System (Redirects custom domain to free GitHub Pages/active hosting)
+      (function() {
+        var currentHost = window.location.hostname;
+        
+        // Define your free website domain here (e.g., your GitHub Pages URL)
+        var FREE_WEBSITE_URL = "https://sameerchoudhary3690.github.io"; // Change this if your GitHub repo/username is different
+        
+        // If the user lands on the custom domain (www.elitemindapp.com), redirect them to your free active website
+        if (currentHost === "www.elitemindapp.com" || currentHost === "elitemindapp.com") {
+          window.location.replace(FREE_WEBSITE_URL + window.location.pathname + window.location.search);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

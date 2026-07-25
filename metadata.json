@@ -1,0 +1,6 @@
+{
+  "name": "EliteMind - Official Website",
+  "description": "EliteMind official landing page for brain training game app with APK download and Play Store coming soon features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
