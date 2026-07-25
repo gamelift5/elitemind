@@ -1,6 +1,7 @@
 import React from 'react';
 import { Download } from 'lucide-react';
 import { motion } from 'motion/react';
+import posterImg from '../assets/images/elitemind_official_poster_1784906992672.jpg';
 
 interface HeroPosterProps {
   onOpenModal: (source: 'download' | 'playstore') => void;
@@ -14,12 +15,7 @@ export const HeroPoster: React.FC<HeroPosterProps> = ({ onOpenModal }) => {
 
       {/* Dynamic Slogan & Enhanced Content (Think Smarter, Become Faster) */}
       <div className="px-4 max-w-4xl mx-auto pt-4 pb-8 text-center flex flex-col items-center justify-center space-y-4">
-        <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-3 flex flex-col items-center text-center"
-        >
+        <div className="space-y-3 flex flex-col items-center text-center">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
             <span>COMING SOON</span>
@@ -34,26 +30,16 @@ export const HeroPoster: React.FC<HeroPosterProps> = ({ onOpenModal }) => {
               Become Faster.
             </span>
           </h1>
-        </motion.div>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium max-w-2xl text-center mx-auto"
-        >
+        <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium max-w-2xl text-center mx-auto">
           EliteMind is the ultimate digital arena for cognitive speed and reflex agility. Train your brain with daily 5-minute mental exercises to sharpen your focus and memory.
-        </motion.p>
+        </p>
       </div>
 
       {/* DOWNLOAD APK & PLAYSTORE BUTTONS WITH INTENSIFIED GLOW & BOUNDARY LINES */}
       <div className="px-4 max-w-4xl mx-auto mb-12 text-left">
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col items-start"
-        >
+        <div className="flex flex-col items-start">
           <div className="flex flex-row items-center gap-3 w-full max-w-md">
             {/* Left Button: Download APK */}
             <button
@@ -94,27 +80,21 @@ export const HeroPoster: React.FC<HeroPosterProps> = ({ onOpenModal }) => {
               </div>
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* SHIFTED POSTER BANNER IMAGE (UNTOUCHABLE) */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="w-full my-0 p-0 border-t border-b border-cyan-950/40 relative overflow-hidden bg-[#050811]"
-      >
+      {/* POSTER BANNER IMAGE - LOADS INSTANTLY WITHOUT DELAY */}
+      <div className="w-full my-0 p-0 border-t border-b border-cyan-950/40 relative overflow-hidden bg-[#050811]">
         <div className="w-full relative overflow-hidden p-0 border-0 outline-none pointer-events-none select-none">
           <img
-            src="/poster.jpg"
+            src={posterImg}
             alt="EliteMind Official Poster - Train Faster, Think Smarter"
             className="w-full h-auto max-h-[600px] object-cover border-0 outline-none p-0 shadow-2xl block mx-auto"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/src/assets/images/elitemind_official_poster_1784906992672.jpg';
-            }}
+            loading="eager"
+            fetchPriority="high"
           />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
