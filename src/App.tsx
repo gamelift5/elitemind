@@ -15,8 +15,10 @@ export default function App() {
   const [modalSource, setModalSource] = useState<'download' | 'playstore' | null>(null);
 
   const handleOpenModal = (source: 'download' | 'playstore') => {
-    setModalSource(source);
-    setModalOpen(true);
+    setTimeout(() => {
+      setModalSource(source);
+      setModalOpen(true);
+    }, 1000);
   };
 
   const handleCloseModal = () => {

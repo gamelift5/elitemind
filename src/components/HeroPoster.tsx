@@ -1,5 +1,5 @@
-import React from 'react';
-import { Download } from 'lucide-react';
+import React, { useState } from 'react';
+import { Download, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import posterImg from '../assets/images/elitemind_official_poster_1784906992672.jpg';
 
@@ -8,6 +8,16 @@ interface HeroPosterProps {
 }
 
 export const HeroPoster: React.FC<HeroPosterProps> = ({ onOpenModal }) => {
+  const [loadingButton, setLoadingButton] = useState<'download' | 'playstore' | null>(null);
+
+  const handleButtonClick = (source: 'download' | 'playstore') => {
+    setLoadingButton(source);
+    onOpenModal(source);
+    setTimeout(() => {
+      setLoadingButton(null);
+    }, 1000);
+  };
+
   return (
     <section id="hero" className="relative pt-6 pb-8 text-left overflow-x-hidden">
       {/* Background Glow Effect */}
@@ -42,43 +52,59 @@ export const HeroPoster: React.FC<HeroPosterProps> = ({ onOpenModal }) => {
         <div className="flex flex-col items-start">
           <div className="flex flex-row items-center gap-3 w-full max-w-md">
             {/* Left Button: Download APK */}
-            <button
-              onClick={() => onOpenModal('download')}
-              className="w-1/2 relative group overflow-hidden rounded-xl p-[1px] transition-transform transform active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.2)] hover:shadow-[0_0_35px_rgba(234,179,8,0.45)] duration-300"
+            <motion.button
+              onClick={() => handleButtonClick('download')}
+              animate={loadingButton === 'download' ? { scale: 0.95 } : { scale: 1 }}
+              transition={{ duration: 0.15 }}
+              className="w-1/2 relative group overflow-hidden rounded-xl p-[1px] cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.2)] hover:shadow-[0_0_35px_rgba(234,179,8,0.45)] transition-shadow duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-400 rounded-xl" />
               <div className="relative px-3 py-3 bg-[#0d1322] group-hover:bg-[#121a2d] rounded-[11px] flex items-center justify-center space-x-2 transition-colors text-white">
                 <div className="p-1.5 rounded-lg bg-amber-500/20 text-yellow-400 group-hover:scale-105 transition-transform shrink-0">
-                  <Download className="w-4.5 h-4.5" />
+                  {loadingButton === 'download' ? (
+                    <Loader2 className="w-4.5 h-4.5 animate-spin text-amber-400" />
+                  ) : (
+                    <Download className="w-4.5 h-4.5" />
+                  )}
                 </div>
                 <div className="text-left min-w-0">
-                  <p className="text-[8px] sm:text-[9px] font-bold text-amber-400 tracking-wide uppercase font-mono truncate">DIRECT INSTALL</p>
+                  <p className="text-[8px] sm:text-[9px] font-bold text-amber-400 tracking-wide uppercase font-mono truncate">
+                    {loadingButton === 'download' ? 'OPENING...' : 'DIRECT INSTALL'}
+                  </p>
                   <p className="text-xs sm:text-sm font-black text-white tracking-wide truncate">Download APK</p>
                 </div>
               </div>
-            </button>
+            </motion.button>
 
             {/* Right Button: PlayStore Coming Soon */}
-            <button
-              onClick={() => onOpenModal('playstore')}
-              className="w-1/2 relative group overflow-hidden rounded-xl p-[1px] transition-transform transform active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:shadow-[0_0_35px_rgba(6,182,212,0.45)] duration-300"
+            <motion.button
+              onClick={() => handleButtonClick('playstore')}
+              animate={loadingButton === 'playstore' ? { scale: 0.95 } : { scale: 1 }}
+              transition={{ duration: 0.15 }}
+              className="w-1/2 relative group overflow-hidden rounded-xl p-[1px] cursor-pointer shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:shadow-[0_0_35px_rgba(6,182,212,0.45)] transition-shadow duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#00f0ff] via-[#ff3d00] via-[#ffc107] to-[#4caf50] rounded-xl animate-pulse" />
               <div className="relative px-3 py-3 bg-[#0d1322] group-hover:bg-[#121a2d] rounded-[11px] flex items-center justify-center space-x-2 transition-colors text-white">
                 <div className="p-1.5 rounded-lg bg-slate-800/80 group-hover:bg-slate-700/80 group-hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 20.2857V3.71429C3 3.12571 3.32 2.60571 3.82 2.34286L12.5 11L3.82 19.6571C3.32 19.3943 3 18.8743 3 18.2857Z" fill="#00f0ff" />
-                    <path d="M12.5 11L16.5 15L20.18 12.9143C21.27 12.2857 21.27 11.7143 20.18 11.0857L16.5 9L12.5 11Z" fill="#ffc107" />
-                    <path d="M12.5 11L3.82 2.34286C4.19 2.14857 4.63 2.13143 5.06 2.38286L16.5 9L12.5 11Z" fill="#ff3d00" />
-                    <path d="M12.5 11L16.5 15L5.06 21.6171C4.63 21.8686 4.19 21.8514 3.82 21.6571L12.5 11Z" fill="#4caf50" />
-                  </svg>
+                  {loadingButton === 'playstore' ? (
+                    <Loader2 className="w-4.5 h-4.5 animate-spin text-cyan-400" />
+                  ) : (
+                    <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 20.2857V3.71429C3 3.12571 3.32 2.60571 3.82 2.34286L12.5 11L3.82 19.6571C3.32 19.3943 3 18.8743 3 18.2857Z" fill="#00f0ff" />
+                      <path d="M12.5 11L16.5 15L20.18 12.9143C21.27 12.2857 21.27 11.7143 20.18 11.0857L16.5 9L12.5 11Z" fill="#ffc107" />
+                      <path d="M12.5 11L3.82 2.34286C4.19 2.14857 4.63 2.13143 5.06 2.38286L16.5 9L12.5 11Z" fill="#ff3d00" />
+                      <path d="M12.5 11L16.5 15L5.06 21.6171C4.63 21.8686 4.19 21.8514 3.82 21.6571L12.5 11Z" fill="#4caf50" />
+                    </svg>
+                  )}
                 </div>
                 <div className="text-left min-w-0">
-                  <p className="text-[8px] sm:text-[9px] font-bold text-[#00f0ff] tracking-wide uppercase font-mono truncate">PLAYSTORE</p>
+                  <p className="text-[8px] sm:text-[9px] font-bold text-[#00f0ff] tracking-wide uppercase font-mono truncate">
+                    {loadingButton === 'playstore' ? 'OPENING...' : 'PLAYSTORE'}
+                  </p>
                   <p className="text-xs sm:text-sm font-black text-white tracking-wide truncate">Coming Soon</p>
                 </div>
               </div>
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
